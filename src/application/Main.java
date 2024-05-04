@@ -1,11 +1,38 @@
 package application;
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
-        for (int i = 1; i <= 10; i++) {
-            System.out.println("i = " + i);
+import application.game.ChessException;
+import application.game.ChessMatch;
+import application.game.ChessPiece;
+import application.game.ChessPosition;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        ChessMatch chessMatch = new ChessMatch();
+
+        while (true) {
+            try {
+                UI.clearScreen();
+                UI.printBoard(chessMatch.getPieces());
+                System.out.println();
+                System.out.print("Source: ");
+                ChessPosition source = UI.readChessPosition(sc);
+
+                System.out.println();
+                System.out.print("Target: ");
+                ChessPosition target = UI.readChessPosition(sc);
+
+                ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+            }
+            catch (ChessException | InputMismatchException e) {
+                System.out.println(e.getMessage());
+                sc.nextLine();
+            }
         }
     }
 }
