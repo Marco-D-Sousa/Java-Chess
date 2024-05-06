@@ -1,5 +1,6 @@
 package application;
 
+import application.game.ChessMatch;
 import application.game.ChessPiece;
 import application.game.ChessPosition;
 import application.game.Color;
@@ -28,7 +29,6 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    // https://stackoverflow.com/questions/2979383/java-clear-the-console
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -44,6 +44,14 @@ public class UI {
         catch (RuntimeException e) {
             throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
         }
+    }
+
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println();
+        System.out.println("Current Player: " + chessMatch.getCurrentPlayer());
     }
 
     public static void printBoard(ChessPiece[][] pieces) {
