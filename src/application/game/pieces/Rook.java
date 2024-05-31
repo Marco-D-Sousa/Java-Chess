@@ -1,7 +1,6 @@
 package application.game.pieces;
 
 import application.boardgame.Board;
-import application.boardgame.Position;
 import application.game.ChessPiece;
 import application.game.Color;
 

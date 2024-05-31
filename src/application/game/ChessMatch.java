@@ -2,7 +2,6 @@ package application.game;
 
 import application.boardgame.Board;
 import application.boardgame.Piece;
-import application.boardgame.Position;
 import application.game.pieces.King;
 import application.game.pieces.Rook;
 

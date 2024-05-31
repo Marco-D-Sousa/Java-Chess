@@ -1,34 +1,24 @@
 package application.boardgame;
 
+import application.pieces.PieceColor;
+
 public abstract class Piece {
 
     protected Position position;
-    private Board board;
+    protected PieceColor color;
 
-    public Piece(Board board) {
-        this.board = board;
-        position = null;
+    public Piece(PieceColor color, Position position) {
+        this.position = position;
+        this.color = color;
     }
 
-    protected Board getBoard() {
-        return board;
+    public Position getPosition() {
+        return position;
     }
 
-    public abstract boolean[][] possibleMoves();
-
-    public boolean possibleMove(Position position) {
-        return possibleMoves()[position.getRow()][position.getColumn()];
+    public PieceColor getColor() {
+        return color;
     }
 
-    public boolean isThereAnyPossibleMove() {
-        boolean[][] mat = possibleMoves();
-        for (int i=0; i<mat.length; i++) {
-            for (int j=0; j<mat.length; j++) {
-                if (mat[i][j]) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    public abstract boolean isValidMove(Position newPosition, Piece[][] board);
 }

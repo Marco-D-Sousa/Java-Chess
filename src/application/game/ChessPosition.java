@@ -1,7 +1,5 @@
 package application.game;
 
-import application.boardgame.Position;
-
 public class ChessPosition {
 
     private char column;

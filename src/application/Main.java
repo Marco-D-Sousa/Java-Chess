@@ -36,3 +36,5 @@ public class Main {
         }
     }
 }
+
+// TODO Bishop Piece https://hackr.io/blog/how-to-build-a-java-chess-game-app

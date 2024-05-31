@@ -2,74 +2,55 @@ package application.boardgame;
 
 public class Board {
 
-    private int rows;
-    private int columns;
-    private Piece[][] pieces;
+    private Piece[][] board;
 
-    public Board(int rows, int columns) {
-        if (rows < 1 || columns < 1) {
-            throw new BoardException("Error creating board: there must be at least 1 row and 1 column");
+    public Board() {
+        this.board = new Piece[8][8];
+        setupPieces();
+    }
+
+    public void movePiece(Position start, Position end) {
+        // Check if there is a piece at the start position and if the move is valid
+        if (board[start.getRow()][start.getColumn()] != null &&
+                board[start.getRow()][start.getColumn()].isValidMove(end, board)) {
+
+            // Perform the move: place the piece at the end position
+            board[end.getRow()][end.getColumn()] = board[start.getRow()][start.getColumn()];
+
+            // Update the piece's position
+            board[end.getRow()][end.getColumn()].setPosition(end);
+
+            // Clear the start position
+            board[start.getRow()][start.getColumn()] = null;
         }
-        this.rows = rows;
-        this.columns = columns;
-        pieces = new Piece[rows][columns];
     }
 
-    public int getRows() {
-        return rows;
-    }
-
-    public int getColumns() {
-        return columns;
-    }
-
-    public Piece piece(int row, int column) {
-        if (!positionExists(row, column)) {
-            throw new BoardException("Position not on the board");
+    private void setupPieces() {
+        // Place Rooks
+        board[0][0] = new Rook(PieceColor.BLACK, new Position(0, 0));
+        board[0][7] = new Rook(PieceColor.BLACK, new Position(0, 7));
+        board[7][0] = new Rook(PieceColor.WHITE, new Position(7, 0));
+        board[7][7] = new Rook(PieceColor.WHITE, new Position(7, 7));
+        // Place Knights
+        board[0][1] = new Knight(PieceColor.BLACK, new Position(0, 1));
+        board[0][6] = new Knight(PieceColor.BLACK, new Position(0, 6));
+        board[7][1] = new Knight(PieceColor.WHITE, new Position(7, 1));
+        board[7][6] = new Knight(PieceColor.WHITE, new Position(7, 6));
+        // Place Bishops
+        board[0][2] = new Bishop(PieceColor.BLACK, new Position(0, 2));
+        board[0][5] = new Bishop(PieceColor.BLACK, new Position(0, 5));
+        board[7][2] = new Bishop(PieceColor.WHITE, new Position(7, 2));
+        board[7][5] = new Bishop(PieceColor.WHITE, new Position(7, 5));
+        // Place Queens
+        board[0][3] = new Queen(PieceColor.BLACK, new Position(0, 3));
+        board[7][3] = new Queen(PieceColor.WHITE, new Position(7, 3));
+        // Place Kings
+        board[0][4] = new King(PieceColor.BLACK, new Position(0, 4));
+        board[7][4] = new King(PieceColor.WHITE, new Position(7, 4));
+        // Place Pawns
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Pawn(PieceColor.BLACK, new Position(1, i));
+            board[6][i] = new Pawn(PieceColor.WHITE, new Position(6, i));
         }
-        return pieces[row][column];
-    }
-
-    public Piece piece(Position position) {
-        if (!positionExists(position)) {
-            throw new BoardException("Position not on the board");
-        }
-        return pieces[position.getRow()][position.getColumn()];
-    }
-
-    public void placePiece(Piece piece, Position position) {
-        if (thereIsAPiece(position)) {
-            throw new BoardException("There is already a piece on position " + position);
-        }
-        pieces[position.getRow()][position.getColumn()] = piece;
-        piece.position = position;
-    }
-
-    public Piece removePiece(Position position) {
-        if (!positionExists(position)) {
-            throw new BoardException("Position not on the board");
-        }
-        if (piece(position) == null) {
-            return null;
-        }
-        Piece aux = piece(position);
-        aux.position = null;
-        pieces[position.getRow()][position.getColumn()] = null;
-        return aux;
-    }
-
-    private boolean positionExists(int row, int column) {
-        return row >= 0 && row < rows && column >= 0 && column < columns;
-    }
-
-    public boolean positionExists(Position position) {
-        return positionExists(position.getRow(), position.getColumn());
-    }
-
-    public boolean thereIsAPiece(Position position) {
-        if (!positionExists(position)) {
-            throw new BoardException("Position not on the board");
-        }
-        return piece(position) != null;
     }
 }
