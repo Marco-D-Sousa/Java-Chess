@@ -1,0 +1,54 @@
+package application.pieces;
+
+import application.boardgame.Piece;
+import application.boardgame.Position;
+import application.game.PieceColor;
+
+public class Queen extends Piece {
+
+    public Queen(PieceColor color, Position position) {
+        super(color, position);
+    }
+
+    @Override
+    public boolean isValidMove(Position newPosition, Piece[][] board) {
+        // Check if the new position is the same as the current position
+        if (newPosition.equals(this.position)) {
+            return false;
+        }
+
+        int rowDiff = Math.abs(newPosition.getRow() - this.position.getRow());
+        int colDiff = Math.abs(newPosition.getColumn() - this.position.getColumn());
+
+        // Check for straight line movement
+        boolean straightLine = this.position.getRow() == newPosition.getRow() ||
+                this.position.getColumn() == newPosition.getColumn();
+
+        // Check for diagonal movement
+        boolean diagonalLine = rowDiff == colDiff;
+
+        if (!straightLine && !diagonalLine) {
+            return false; // Move is neither straight nor diagonal
+        }
+
+        // Calculate direction of movement
+        int rowDirection = Integer.compare(newPosition.getRow(), this.position.getRow());
+        int colDirection = Integer.compare(newPosition.getColumn(), this.position.getColumn());
+
+        // Check for any pieces in the path
+        int currentRow = this.position.getRow() + rowDirection;
+        int currentColumn = this.position.getColumn() + colDirection;
+
+        while (currentRow != newPosition.getRow() || currentColumn != newPosition.getColumn()) {
+            if (board[currentRow][currentColumn] != null) {
+                return false;
+            }
+            currentRow += rowDirection;
+            currentColumn += colDirection;
+        }
+
+        // The move is valid if the destination is empty or contains an opponent's piece
+        Piece destinationPiece = board[newPosition.getRow()][newPosition.getColumn()];
+        return destinationPiece == null || destinationPiece.getColor() != this.getColor();
+    }
+}

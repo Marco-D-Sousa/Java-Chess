@@ -1,10 +1,10 @@
 package application.boardgame;
 
-public class Board {
+public class ChessBoard {
 
     private Piece[][] board;
 
-    public Board() {
+    public ChessBoard() {
         this.board = new Piece[8][8];
         setupPieces();
     }

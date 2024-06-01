@@ -3,11 +3,6 @@ package application;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-import application.game.ChessException;
-import application.game.ChessMatch;
-import application.game.ChessPiece;
-import application.game.ChessPosition;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -37,4 +32,5 @@ public class Main {
     }
 }
 
-// TODO Bishop Piece https://hackr.io/blog/how-to-build-a-java-chess-game-app
+// TODO https://hackr.io/blog/how-to-build-a-java-chess-game-app
+// TODO vi. Checking for Checkmate

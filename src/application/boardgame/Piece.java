@@ -1,6 +1,6 @@
 package application.boardgame;
 
-import application.pieces.PieceColor;
+import application.game.PieceColor;
 
 public abstract class Piece {
 

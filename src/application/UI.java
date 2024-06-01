@@ -1,9 +1,5 @@
 package application;
 
-import application.game.ChessPiece;
-import application.game.ChessPosition;
-import application.game.Color;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

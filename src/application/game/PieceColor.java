@@ -1,6 +1,6 @@
 package application.game;
 
-public enum Color {
+public enum PieceColor {
     WHITE,
-    BLACK;
+    BLACK
 }
