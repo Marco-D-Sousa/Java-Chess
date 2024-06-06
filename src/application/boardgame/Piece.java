@@ -12,12 +12,16 @@ public abstract class Piece {
         this.color = color;
     }
 
+    public PieceColor getColor() {
+        return color;
+    }
+
     public Position getPosition() {
         return position;
     }
 
-    public PieceColor getColor() {
-        return color;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public abstract boolean isValidMove(Position newPosition, Piece[][] board);
